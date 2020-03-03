@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web.Identity
+namespace Adventureworks.Web.Identity
 {
     public class AdventureWorksUser : IdentityUser
     {

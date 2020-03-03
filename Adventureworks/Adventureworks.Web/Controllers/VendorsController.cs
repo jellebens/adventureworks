@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Adventureworks.Core.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Web.Models;
+using Adventureworks.Web.Models;
 using Newtonsoft.Json;
 
-namespace Web.Controllers
+namespace Adventureworks.Web.Controllers
 {
     public class VendorsController : Controller
     {

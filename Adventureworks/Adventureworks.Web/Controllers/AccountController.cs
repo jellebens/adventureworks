@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Web.Controllers
+namespace Adventureworks.Web.Controllers
 {
     public class AccountController : Controller
     {

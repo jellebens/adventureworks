@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Web.Controllers
+namespace Adventureworks.Web.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
