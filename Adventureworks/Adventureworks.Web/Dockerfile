@@ -4,15 +4,11 @@ FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS publish
 WORKDIR /src
 
 COPY . .
 RUN dotnet restore Adventureworks.Web/Adventureworks.Web.csproj
-RUN dotnet build Adventureworks.Web/Adventureworks.Web.csproj -c Release -o /app/build
-
-
-FROM build AS publish
 RUN dotnet publish Adventureworks.Web/Adventureworks.Web.csproj -c Release -o /app/publish
 
 FROM base AS final

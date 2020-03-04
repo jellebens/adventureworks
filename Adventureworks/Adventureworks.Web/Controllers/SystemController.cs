@@ -40,12 +40,12 @@ namespace Adventureworks.Web.Controllers
 
             HttpClient client = new HttpClient();
 
-            HttpResponseMessage result = client.GetAsync(orderService).Result;
+            //HttpResponseMessage result = client.GetAsync(orderService).Result;
 
-            if (!result.IsSuccessStatusCode) {
-                _Logger.LogWarning("Failed to call orderservice");
-                throw new Exception();
-            }
+            //if (!result.IsSuccessStatusCode) {
+            //    _Logger.LogWarning("Failed to call orderservice");
+            //    throw new Exception();
+            //}
 
             return Ok();
         }
