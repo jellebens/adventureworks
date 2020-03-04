@@ -38,13 +38,14 @@ namespace Adventureworks.Web.Controllers
             _Logger.LogInformation("Pinging orderservice");
             var orderService = new Uri($"{Orders.System.Ready}");
 
-            HttpClient client = new HttpClient();
+            //HttpClient client = new HttpClient();
 
             //HttpResponseMessage result = client.GetAsync(orderService).Result;
 
-            //if (!result.IsSuccessStatusCode) {
+            //if (!result.IsSuccessStatusCode)
+            //{
             //    _Logger.LogWarning("Failed to call orderservice");
-            //    throw new Exception();
+            //    return StatusCode(500);
             //}
 
             return Ok();

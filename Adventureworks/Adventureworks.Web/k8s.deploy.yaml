@@ -33,3 +33,4 @@ spec:
                 memory: 128Mi
 
 #kubectl apply -f .\Adventureworks.Web\k8s.deploy.yaml
+#kubectl set image deployment/adventureworks web=adventureworks/web:dev
