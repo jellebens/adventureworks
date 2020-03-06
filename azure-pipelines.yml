@@ -42,7 +42,7 @@ stages:
         tags: |
           $(tag)
           
-    - upload: $(dockerBuild)/Adventureworks.Web/k8s*.*
+    - upload: $(dockerBuild)/Adventureworks.Web/k8s/
       artifact: scripts
 
 - stage: Deploy
