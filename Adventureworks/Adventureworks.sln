@@ -8,9 +8,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adventureworks.Web", "Adventureworks.Web\Adventureworks.Web.csproj", "{89EA0351-1252-45C4-B256-43A0B23FFE05}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build scripts", "build scripts", "{11F7A58C-C86C-4EFE-8D5B-FA871A196C8D}"
-	ProjectSection(SolutionItems) = preProject
-		web.docker.build.local.ps1 = web.docker.build.local.ps1
-	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{EC416808-464E-42CD-8C2E-6F7A9131D0F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +28,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC416808-464E-42CD-8C2E-6F7A9131D0F1} = {11F7A58C-C86C-4EFE-8D5B-FA871A196C8D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {926B3E49-5E27-4217-B1B0-80B96E0D3E9B}

@@ -1,20 +1,19 @@
-apiVersion: apps/v1beta1
+apiVersion : apps/v1beta1
 kind: Deployment
 metadata:
-  name: adventureworks.web
+  name: adventureworks.web 
 spec:
-  replicas: 2
+  replicas: 1
   template:
     metadata:
       labels:
         app: adventureworks
     spec:
       containers:
-        - image: "adventureworks/web:dev"
-          imagePullPolicy: IfNotPresent
-          name: web
+        - name: frontend
+          image: jbens.azurecr.io/adventureworks/web
           ports:
-            - containerPort: 80
+          - containerPort: 80
           livenessProbe: 
             httpGet:
               path: /api/system/live
@@ -31,6 +30,3 @@ spec:
               limits:
                 cpu: 100m
                 memory: 128Mi
-
-#kubectl apply -f .\Adventureworks.Web\k8s.deploy.yaml
-#kubectl set image deployment/adventureworks web=adventureworks/web:dev
