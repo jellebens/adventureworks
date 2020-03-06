@@ -36,7 +36,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
+        dockerfile: $(dockerBuild)/Adventureworks/$(dockerfilePath)
         buildContext: $(dockerBuild)/Adventureworks
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
