@@ -51,7 +51,7 @@ stages:
 
   jobs:
   - deployment: Deploy
-    displayName: Deploy
+    displayName: Canary Deploy
     pool:
       vmImage: $(vmImageName)
     environment: 'Microservices.adventureworks'
@@ -67,7 +67,7 @@ stages:
               dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
               
           - task: KubernetesManifest@0
-            displayName: Deploy to Kubernetes cluster
+            displayName: Deploy to Canary To Kubernetes cluster
             inputs:
               action: deploy
               manifests: |
