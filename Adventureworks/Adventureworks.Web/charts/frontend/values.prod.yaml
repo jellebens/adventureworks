@@ -1,0 +1,6 @@
+﻿image:
+  repository: jbens.azurecr.io/adventureworks/web
+  name: frontend
+  pullPolicy: Always
+  port: 80
+  imagePullSecret: acr-k8s
