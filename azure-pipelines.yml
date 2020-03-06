@@ -42,7 +42,7 @@ stages:
         tags: |
           $(tag)
           
-    - upload: $(dockerBuild)/Adventureworks/Adventureworks.Web/*.yaml
+    - upload: $(dockerBuild)/Adventureworks.Web/*.yaml
       artifact: scripts
 
 - stage: Deploy
