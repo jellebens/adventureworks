@@ -12,9 +12,9 @@ variables:
 
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '709ff85a-d623-4d02-a684-6755d788791a'
-  imageRepository: 'adventureworksweb'
+  imageRepository: 'adventureworks/web'
   containerRegistry: 'jbens.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
+  dockerfilePath: '**Adventureworks.Web/Dockerfile/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jbensa393-auth'
 
