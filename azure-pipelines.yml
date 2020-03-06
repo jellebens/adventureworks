@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+- manual
 
 resources:
 - repo: self
@@ -48,33 +48,3 @@ stages:
 - stage: Deploy
   displayName: Deploy stage
   dependsOn: Build
-
-  jobs:
-  - deployment: Deploy
-    displayName: Canary Deploy
-    pool:
-      vmImage: $(vmImageName)
-    environment: 'Microservices.adventureworks'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: KubernetesManifest@0
-            displayName: Create imagePullSecret
-            inputs:
-              action: createSecret
-              secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-              
-          - task: KubernetesManifest@0
-            displayName: Deploy to Canary To Kubernetes cluster
-            inputs:
-              action: deploy
-              manifests: |
-                $(Pipeline.Workspace)/scripts/k8s.deploy.yaml
-                $(Pipeline.Workspace)/scripts/k8s.service.yaml
-              imagePullSecrets: |
-                $(imagePullSecret)
-              containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-
