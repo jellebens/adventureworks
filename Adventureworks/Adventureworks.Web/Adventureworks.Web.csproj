@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -20,6 +20,15 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AdventureWorks.Core\Adventureworks.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="k8s\k8s.deploy.yaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="k8s\k8s.service.yaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
