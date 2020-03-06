@@ -17,7 +17,7 @@ variables:
   dockerfilePath: 'Adventureworks.Web/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jbensa393-auth'
-  dockerBuild: $(Agent.BuildDirectory)/Microservices/Adventureworks
+  dockerBuild: $(Build.SourcesDirectory)/Microservices/Adventureworks
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
@@ -37,7 +37,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerBuild)/$(dockerfilePath)
-        buildContext: $(dockerBuild)/Adventureworks
+        buildContext: $(dockerBuild)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
