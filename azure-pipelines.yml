@@ -17,7 +17,7 @@ variables:
   dockerfilePath: 'Adventureworks.Web/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jbensa393-auth'
-  dockerBuild: $(Pipeline.Workspace)/Adventureworks
+  dockerBuild: $(Build.SourcesDirectory)/Adventureworks
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
