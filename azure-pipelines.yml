@@ -42,5 +42,5 @@ stages:
         tags: |
           $(tag)
           
-    - upload: $(dockerBuild)/Adventureworks.Web/k8s/
-      artifact: scripts
+    - upload: $(dockerBuild)/Adventureworks.Web/charts
+      artifact: helm
