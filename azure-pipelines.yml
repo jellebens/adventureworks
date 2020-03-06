@@ -44,7 +44,3 @@ stages:
           
     - upload: $(dockerBuild)/Adventureworks.Web/k8s/
       artifact: scripts
-
-- stage: Deploy
-  displayName: Deploy stage
-  dependsOn: Build
