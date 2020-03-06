@@ -36,7 +36,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
+        dockerfile: $(dockerBuild)/$(dockerfilePath)
         buildContext: $(dockerBuild)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
