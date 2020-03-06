@@ -42,8 +42,8 @@ stages:
         tags: |
           $(tag)
           
-    - upload: manifests
-      artifact: manifests
+    - upload: $(dockerBuild)/Adventureworks.Web/k8s/
+      artifact: scripts
 
 - stage: Deploy
   displayName: Deploy stage
@@ -71,8 +71,8 @@ stages:
             inputs:
               action: deploy
               manifests: |
-                $(Pipeline.Workspace)/manifests/deployment.frontend.yml
-                $(Pipeline.Workspace)/manifests/service.frontend.yml
+                $(Pipeline.Workspace)/k8s.deploy.yaml
+                $(Pipeline.Workspace)/k8s.service.yaml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
