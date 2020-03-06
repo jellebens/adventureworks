@@ -14,10 +14,10 @@ variables:
   dockerRegistryServiceConnection: '709ff85a-d623-4d02-a684-6755d788791a'
   imageRepository: 'adventureworks/web'
   containerRegistry: 'jbens.azurecr.io'
-  dockerfilePath: '**Adventureworks.Web/Dockerfile/Dockerfile'
+  dockerfilePath: 'Adventureworks.Web/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jbensa393-auth'
-
+  dockerBuild: $(Agent.BuildDirectory)
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
@@ -37,6 +37,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
+        buildContext: $(dockerBuild)/Adventureworks
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
