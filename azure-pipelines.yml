@@ -14,7 +14,7 @@ variables:
   dockerRegistryServiceConnection: '709ff85a-d623-4d02-a684-6755d788791a'
   imageRepository: 'adventureworks/web'
   containerRegistry: 'jbens.azurecr.io'
-  dockerfilePath: 'Adventureworks.Web/Dockerfile'
+  dockerfilePath: '**/Adventureworks.Web/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'jbensa393-auth'
   dockerBuild: $(Build.SourcesDirectory)/Microservices/Adventureworks
