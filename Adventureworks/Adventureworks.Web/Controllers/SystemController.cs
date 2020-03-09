@@ -35,19 +35,6 @@ namespace Adventureworks.Web.Controllers
         [Route("ready")]
         public override ActionResult IsReady()
         {
-            _Logger.LogInformation("Pinging orderservice");
-            var orderService = new Uri($"{Orders.System.Ready}");
-
-            //HttpClient client = new HttpClient();
-
-            //HttpResponseMessage result = client.GetAsync(orderService).Result;
-
-            //if (!result.IsSuccessStatusCode)
-            //{
-            //    _Logger.LogWarning("Failed to call orderservice");
-            //    return StatusCode(500);
-            //}
-
             return Ok();
         }
     }
