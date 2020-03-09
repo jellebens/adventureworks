@@ -21,3 +21,13 @@ If you want to learn more about creating good readme files then refer the follow
 - [Full doc](https://kubernetes.io/docs/reference/kubectl/overview/)
 
 kubectl get pod
+
+
+# AKS Cheat sheet
+## Attach Azure Container Registry to AKS
+
+az aks update -n adventureworks -g microservice-rg --attach-acr jbens
+
+# Helm Cheat sheet
+
+- helm -n adventureworks delete frontend-devops

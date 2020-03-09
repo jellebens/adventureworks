@@ -21,7 +21,7 @@ probes:
   enabled: true
 
 ingress:
-  enabled: false
+  enabled: true
   annotations:
     # kubernetes.io/tls-acme: "true"
   path: /
