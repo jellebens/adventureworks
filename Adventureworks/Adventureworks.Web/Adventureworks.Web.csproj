@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>e83c142e-e128-472d-89b4-83b1fd768a38</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <ApplicationInsightsResourceId>/subscriptions/c2927489-3dbc-4516-a992-69e4d58b3a99/resourcegroups/microservice-rg/providers/microsoft.insights/components/adventureworks</ApplicationInsightsResourceId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +30,10 @@
     <None Update="k8s\k8s.service.yaml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services" />
   </ItemGroup>
 
 </Project>
