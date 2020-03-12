@@ -1,0 +1,46 @@
+environment: development
+
+label:
+  name: adventureworks
+
+image:
+  repository: adventureworks/web
+  tag: dev
+  name: frontend
+  pullPolicy: IfNotPresent
+  port: 80
+
+replicas: 2
+
+
+service:
+  type: LoadBalancer
+  port: 80
+
+probes:
+  enabled: true
+
+ingress:
+  enabled: true
+  annotations:
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  # hosts:
+  #   - chart-example.local
+  tls: []
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+secrets: {}
+resources: 
+  limits:
+   cpu: 100m
+   memory: 128Mi
+  requests:
+   cpu: 100m
+   memory: 128Mi
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
