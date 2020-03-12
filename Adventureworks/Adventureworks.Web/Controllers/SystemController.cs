@@ -35,6 +35,7 @@ namespace Adventureworks.Web.Controllers
         [Route("ready")]
         public override ActionResult IsReady()
         {
+            //
             return Ok();
         }
     }
