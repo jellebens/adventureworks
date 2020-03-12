@@ -20,6 +20,7 @@ variables:
   imageRepository: 'microservices'
   containerRegistry: 'jbens.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Adventureworks/Adventureworks.Web/Dockerfile'
+  dockerWorkDir: $(Build.SourcesDirectory)/Adventureworks
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
@@ -27,7 +28,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build and push stage
+  displayName: Build stage
   jobs:  
   - job: Build
     displayName: Build
@@ -40,6 +41,10 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
+        buildContext: $(dockerWorkDir)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
+          
+    - upload: $(Build.SourcesDirectory)/Adventureworks/Helm
+      artifact: helmCharts
