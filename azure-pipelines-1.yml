@@ -8,7 +8,7 @@ trigger:
     - master
   paths:
     include:
-    - Adventureworks/Adventureworks.Web/
+    - Adventureworks/Adventureworks.Web/*
 
 
 resources:
