@@ -15,9 +15,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "k8s", "k8s", "{EC416808-464E-42CD-8C2E-6F7A9131D0F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BFF0BE54-D5CF-4B38-B2AE-C1C9675A08DA}"
-	ProjectSection(SolutionItems) = preProject
-		adventureworks\charts\frontend\Chart.yaml = adventureworks\charts\frontend\Chart.yaml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "adventureworks", "adventureworks", "{BFF8EDD0-CF15-4495-9612-356BE68FF267}"
 EndProject
