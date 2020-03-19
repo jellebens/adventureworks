@@ -31,3 +31,7 @@ az aks update -n adventureworks -g microservice-rg --attach-acr jbens
 # Helm Cheat sheet
 
 - helm -n adventureworks delete frontend-devops
+
+# Istio cheat sheet
+
+- kubectl label namespace adventureworks istio-injection=enabled
