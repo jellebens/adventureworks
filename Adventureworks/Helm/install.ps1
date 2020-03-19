@@ -1,0 +1,1 @@
+helm install adventureworks .\adventureworks

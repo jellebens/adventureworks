@@ -29,9 +29,17 @@ kubectl get pod
 az aks update -n adventureworks -g microservice-rg --attach-acr jbens
 
 # Helm Cheat sheet
-
+- kubectl create namespace adventureworks
+- helm install adventureworks .\adventureworks\  --namespace adventureworks
+- helm upgrade adventureworks .\adventureworks\  --namespace adventureworks
+- helm delete adventureworks --namespace adventureworks
 - helm -n adventureworks delete frontend-devops
 
 # Istio cheat sheet
+## Installing istio
+- istioctl operator init
+- istioctl manifest apply --set values.kiali.enabled=true  --set values.prometheus.enabled=true --set values.tracing.enabled=true --set addonComponents.grafana.enabled=true
+
+
 
 - kubectl label namespace adventureworks istio-injection=enabled
