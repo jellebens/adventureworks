@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Adventureworks.Core.Mvc
 {
-    public abstract class PingableControllerBase : ControllerBase
+    public abstract class SystemControllerBase : ControllerBase
     {
         public abstract ActionResult IsLive();
 

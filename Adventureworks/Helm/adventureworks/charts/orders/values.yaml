@@ -1,12 +1,12 @@
 environment: development
 
 label:
-  name: frontend
+  name: orders
 
 image:
-  repository: adventureworks/web
+  repository: adventureworks/orders
   tag: dev
-  name: frontend
+  name: orders
   pullPolicy: IfNotPresent
   port: 80
 
@@ -21,13 +21,13 @@ probes:
   enabled: true
 
 ingress:
-  enabled: true
+  enabled: false
   annotations:
     # kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-  path: /
+    nginx.ingress.kubernetes.io/rewrite-target: /api
+  path: /api/
   hosts: 
-    - "frontend.adventureworks"
+    - "orders.adventureworks"
      
   tls: []
     # - secretName: chart-example-tls

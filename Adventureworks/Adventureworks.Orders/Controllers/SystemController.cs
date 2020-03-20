@@ -1,29 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Adventureworks.Core.Mvc;
-using Adventureworks.Core.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using OrderService.Data;
 
-namespace Adventureworks.Web.Controllers
+namespace Adventureworks.Orders.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class SystemController : SystemControllerBase
     {
-        private readonly ILogger _Logger;
 
-        public SystemController(ILogger<SystemController> logger)
-        {
-            this._Logger = logger;
-        }
-
-        
         [HttpGet]
         [Route("live")]
         public override ActionResult IsLive()
@@ -35,8 +26,22 @@ namespace Adventureworks.Web.Controllers
         [Route("ready")]
         public override ActionResult IsReady()
         {
-            //
-            return Ok();
+            bool isReady = false;
+
+
+            using (PurchasingDbContext ctx = new PurchasingDbContext())
+            {
+                isReady = true;
+            }
+
+            if (isReady)
+            {
+                return Ok();
+            }
+            else
+            {
+                return StatusCode(500);
+            }
         }
     }
 }

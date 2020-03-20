@@ -22,6 +22,15 @@ If you want to learn more about creating good readme files then refer the follow
 
 kubectl get pod
 
+## install dashboard
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+
+### get the token 
+$TOKEN=((kubectl -n kube-system describe secret default | Select-String "token:") -split " +")[1]
+
+## Installing nginx ingress controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml
 
 # AKS Cheat sheet
 ## Attach Azure Container Registry to AKS
@@ -38,6 +47,7 @@ az aks update -n adventureworks -g microservice-rg --attach-acr jbens
 # Istio cheat sheet
 ## Installing istio
 - istioctl operator init
+- istioctl manifest apply --set profile=demo
 - istioctl manifest apply --set values.kiali.enabled=true  --set values.prometheus.enabled=true --set values.tracing.enabled=true --set addonComponents.grafana.enabled=true
 
 

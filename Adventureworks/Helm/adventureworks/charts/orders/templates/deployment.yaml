@@ -1,10 +1,10 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "orders.fullname" . }}
+  name: {{ template "frontend.fullname" . }}
   labels:
-    app: {{ template "orders.name" . }}
-    chart: {{ template "orders.chart" . }}
+    app: {{ template "frontend.name" . }}
+    chart: {{ template "frontend.chart" . }}
     draft: {{ .Values.draft | default "draft-app" }}
     release: {{ .Release.Name }}
     heritage: {{ .Release.Service }}
@@ -17,12 +17,12 @@ spec:
       maxSurge: 1
   selector:
     matchLabels:
-      app: {{ template "orders.name" . }}
+      app: {{ template "frontend.name" . }}
       release: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: {{ template "orders.name" . }}
+        app: {{ template "frontend.name" . }}
         draft: {{ .Values.draft | default "draft-app" }}
         release: {{ .Release.Name }}
       annotations:
@@ -56,7 +56,7 @@ spec:
             - name: {{ $ref }}_{{ $key }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ template "orders.fullname" $root }}-{{ $ref | lower }}
+                  name: {{ template "frontend.fullname" $root }}-{{ $ref | lower }}
                   key: {{ $key }}
             {{- end }}
             {{- end }}
