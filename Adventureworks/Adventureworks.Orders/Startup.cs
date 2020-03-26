@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using OrderService.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Adventureworks.Orders
 {
@@ -26,6 +28,10 @@ namespace Adventureworks.Orders
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddDbContext<PurchasingDbContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("Purchasing"), provideroptions => provideroptions.EnableRetryOnFailure(5));
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

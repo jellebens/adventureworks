@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace OrderService.Data
 {
-    [Table("Vendor", Schema="Purchasing")]
     public class Vendor
     {
         public int Id { get; internal set; }

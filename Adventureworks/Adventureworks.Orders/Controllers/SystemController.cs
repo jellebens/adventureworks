@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Adventureworks.Core.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using OrderService.Data;
 
 namespace Adventureworks.Orders.Controllers
@@ -14,6 +16,14 @@ namespace Adventureworks.Orders.Controllers
     [ApiController]
     public class SystemController : SystemControllerBase
     {
+        private readonly PurchasingDbContext purchasingDbContext;
+        private readonly ILogger<SystemController> _Logger;
+
+        public SystemController(PurchasingDbContext purchasingDbContext, ILogger<SystemController> logger)
+        {
+            this.purchasingDbContext = purchasingDbContext;
+            this._Logger = logger;
+        }
 
         [HttpGet]
         [Route("live")]
@@ -26,13 +36,7 @@ namespace Adventureworks.Orders.Controllers
         [Route("ready")]
         public override ActionResult IsReady()
         {
-            bool isReady = false;
-
-
-            using (PurchasingDbContext ctx = new PurchasingDbContext())
-            {
-                isReady = true;
-            }
+            bool isReady = purchasingDbContext.Database.CanConnect();
 
             if (isReady)
             {
@@ -40,6 +44,7 @@ namespace Adventureworks.Orders.Controllers
             }
             else
             {
+                _Logger.LogWarning("Failed to connect to database");
                 return StatusCode(500);
             }
         }

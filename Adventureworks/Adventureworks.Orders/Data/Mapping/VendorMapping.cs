@@ -11,10 +11,9 @@ namespace OrderService.Data.Mapping
     {
         public void Configure(EntityTypeBuilder<Vendor> builder)
         {
-
-            
-            builder.Property(v => v.Id).HasField("BusinessEntityID");
-            builder.Property(v => v.Name).HasField("Name");
+            builder.ToTable("Vendor", "Purchasing");
+            builder.Property(v => v.Id).HasColumnName("BusinessEntityID");
+            builder.Property(v => v.Name).HasColumnName("Name");
             builder.HasMany(v => v.Orders)
                 .WithOne(po => po.Vendor);
         }

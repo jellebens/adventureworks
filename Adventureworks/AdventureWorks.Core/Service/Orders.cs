@@ -6,7 +6,7 @@ namespace Adventureworks.Core.Service
 {
     public static class Orders
     {
-        public const string Host = "http://OrderService.Adventureworks";
+        public const string Host = "http://orders.adventureworks";
 
         public class Vendors{
             private const string api = Host + "/api/orders";

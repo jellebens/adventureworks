@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace OrderService.Data
 {
 
-    [Table("PurchaseOrderHeader", Schema = "Purchasing")]
+    
     public class PurchaseOrder
     {
         public int Id { get; set; }
