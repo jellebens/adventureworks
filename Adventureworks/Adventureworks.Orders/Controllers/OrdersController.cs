@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Adventureworks.Core.Contracts.Orders;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using OrderService.Data;
 
 namespace Adventureworks.Orders.Controllers
@@ -14,10 +15,12 @@ namespace Adventureworks.Orders.Controllers
     public class OrdersController : ControllerBase
     {
         private readonly PurchasingDbContext _PurchasingDb;
+        private readonly ILogger<OrdersController> _Logger;
 
-        public OrdersController(PurchasingDbContext purchasingDb)
+        public OrdersController(PurchasingDbContext purchasingDb, ILogger<OrdersController> logger)
         {
             _PurchasingDb = purchasingDb;
+            _Logger = logger;
         }
         [HttpGet]
         [Route("list/vendors")]
@@ -34,6 +37,18 @@ namespace Adventureworks.Orders.Controllers
 
 
             return vendors;
+        }
+
+        [HttpGet]
+        [Route("version")]
+        public string Version() {
+            string version = Environment.GetEnvironmentVariable("VERSION");
+            _Logger.LogInformation($"Version: $(version)");
+            if (string.IsNullOrEmpty(version))
+            {
+                version = "NOT SET";
+            }
+            return version;
         }
     }
 }

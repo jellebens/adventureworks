@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Test";
+}
+
+<h2>Demo Page</h2>
+<ul id="responeList">
+</ul>
+
+@section scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/dataTables/datatables.min.js"></script>
+        <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+    </environment>
+
+    <script type="text/javascript">
+        function GetVersion() {
+            $.ajax({
+                'url': "@Url.Action("Version")",
+                'method': "GET",
+                'contentType': 'application/json'
+            }).done(function (ajaxData) {
+                $('#responeList').prepend("<li>" + ajaxData + "</li>").focus();
+
+            }).fail(function () {
+                $('#responeList').prepend("<li>!!!Error!!!</li>").focus();
+            }).always(function () {
+                if ($('ul#responeList li').length > 50) {
+                    $('#responeList li:last-child').remove();
+                }
+            });
+
+            
+        }
+
+        $(document).ready(function () {
+            setInterval(GetVersion, 1000);
+        });
+
+
+
+    </script>
+
+}

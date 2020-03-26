@@ -6,32 +6,29 @@ using System.Threading.Tasks;
 using Adventureworks.Core.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Adventureworks.Web.Models;
-using Newtonsoft.Json;
 
 namespace Adventureworks.Web.Controllers
 {
-    public class VendorsController : Controller
+    public class TestController : Controller
     {
         private readonly ILogger _Logger;
+        
 
-        public VendorsController(ILogger<VendorsController> logger)
+        public TestController(ILogger<TestController> logger)
         {
             _Logger = logger;
         }
 
-        [HttpGet]
         public IActionResult Index()
         {
-
             return View();
-           
         }
 
         [HttpGet]
-        public async Task<JsonResult> OpenOrders() {
-            _Logger.LogInformation("Getting Vendors");
-            var orderService = new Uri($"{Orders.Vendors.List}");
+        public async Task<JsonResult> Version()
+        {
+            _Logger.LogInformation("Getting Version");
+            var orderService = new Uri($"{Orders.Version.Current}");
 
             HttpClient client = new HttpClient();
 
@@ -41,14 +38,12 @@ namespace Adventureworks.Web.Controllers
             {
                 _Logger.LogWarning("Failed to call orderservice");
 
-                return Json("");
+                return Json("Failed to call service: " + result.StatusCode);
             }
-            
+
             string response = await result.Content.ReadAsStringAsync();
 
-            VendorListItem[] vendors = JsonConvert.DeserializeObject<VendorListItem[]>(response); 
-
-            return Json(vendors);
+            return Json(response);
         }
     }
 }

@@ -57,7 +57,7 @@
     $(document).ready(function () {
 
         $.ajax({
-            'url': "@Url.Action("Vendors")",
+            'url': "@Url.Action("OpenOrders")",
             'method': "GET",
             'contentType': 'application/json'
         }).done(function (ajaxData) {
