@@ -10,7 +10,7 @@
         <div class="ibox">
             <div class="ibox-title">Order Service Versions</div>
             <div class="ibox-content">
-                
+
             </div>
         </div>
     </div>
@@ -29,6 +29,16 @@
         v2Count = 0;
 
         function GetVersion() {
+
+            var x = new Date();
+
+            console.info(x);
+
+            
+            var currentTime =  ("00" + x.getHours()).slice(-2)    + ":" 
+                             + ("00" + x.getMinutes()).slice(-2)  + ":" 
+                             + ("00" + x.getSeconds()).slice(-2); 
+
             $.ajax({
                 'url': "@Url.Action("Version")",
                 'method': "GET",
@@ -53,13 +63,13 @@
                     v2 = '';
                     v2Count = 0;
                 }
-                var dt = new Date();
-                var currentTime = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+                
 
-                $('.ibox-content').prepend("<div class='alert " + cssClass + "'>" + currentTime + ": " + ajaxData + "<div>");
+                $('.ibox-content').prepend("<div class='alert " + cssClass + "'>" + currentTime + " " + ajaxData + "<div>");
 
             }).fail(function () {
-                $('.ibox-content').prepend("<div class='alert alert-danger'>ERROR<div>");
+                
+                $('.ibox-content').prepend("<div class='alert alert-danger'>"+  currentTime  + " ERROR<div>");
             }).always(function () {
                 count++;
                 if (count > 15) {
