@@ -3,8 +3,18 @@
 }
 
 <h2>Demo Page</h2>
-<ul id="responeList">
-</ul>
+
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox">
+            <div class="ibox-title">Order Service Versions</div>
+            <div class="ibox-content">
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 @section scripts {
     <environment names="Development,Staging,Production">
@@ -13,23 +23,54 @@
     </environment>
 
     <script type="text/javascript">
+        var count = 0;
+        var v1 = ''
+        var v2 = ''
+        v2Count = 0;
+
         function GetVersion() {
             $.ajax({
                 'url': "@Url.Action("Version")",
                 'method': "GET",
                 'contentType': 'application/json'
             }).done(function (ajaxData) {
-                $('#responeList').prepend("<li>" + ajaxData + "</li>").focus();
+                var cssClass = "alert-success";
+                //$('#responeList').prepend("<li>" + ajaxData + "</li>").focus();
+                if (v1 == '') {
+                    v1 = ajaxData;
+                }
+
+                if (v1 != ajaxData) {
+                    if (v2 == '') {
+                        v2 == ajaxData;
+                        v2Count++;
+                        cssClass = "alert-info";
+                    }
+                }
+
+                if (v2Count == 15) {
+                    v1 = v2;
+                    v2 = '';
+                    v2Count = 0;
+                }
+                var dt = new Date();
+                var currentTime = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+
+                $('.ibox-content').prepend("<div class='alert " + cssClass + "'>" + currentTime + ": " + ajaxData + "<div>");
 
             }).fail(function () {
-                $('#responeList').prepend("<li>!!!Error!!!</li>").focus();
+                $('.ibox-content').prepend("<div class='alert alert-danger'>ERROR<div>");
             }).always(function () {
-                if ($('ul#responeList li').length > 50) {
-                    $('#responeList li:last-child').remove();
+                count++;
+                if (count > 15) {
+                    $('.alert').last().remove();
                 }
+                //if ($('ul#responeList li').length > 50) {
+                //    $('#responeList li:last-child').remove();
+                //}
             });
 
-            
+
         }
 
         $(document).ready(function () {
