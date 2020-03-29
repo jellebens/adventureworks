@@ -1,0 +1,24 @@
+{{- if .Values.ingress.enabled -}}
+{{- $fullName := include "frontend.name" . -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: {{ $fullName }}
+  
+spec:
+  {{- with .Values.ingress.hosts }}
+  hosts:
+    {{ toYaml . | indent 4 }}
+  {{- end }}
+  gateways:
+    - public-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            port:
+              number: 80
+            host: frontend
+{{- end }}

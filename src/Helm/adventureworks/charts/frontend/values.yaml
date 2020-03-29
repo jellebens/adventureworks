@@ -22,6 +22,8 @@ probes:
 
 ingress:
   enabled: true
+  hosts:
+    - '*'
   annotations:
     kubernetes.io/ingress.class: "istio"
   paths:
