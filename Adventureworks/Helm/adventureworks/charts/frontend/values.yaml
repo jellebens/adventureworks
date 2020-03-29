@@ -23,16 +23,16 @@ probes:
 ingress:
   enabled: true
   annotations:
-    # kubernetes.io/tls-acme: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /
-  path: /
-  hosts: 
-    - "frontend.adventureworks"
-     
-  tls: []
-    # - secretName: chart-example-tls
-    #   hosts:
-    #     - chart-example.local
+    kubernetes.io/ingress.class: "istio"
+  paths:
+    - path: /
+      backend:
+        serviceName: frontend
+        servicePort: 80
+    - path: /api/orders
+      backend:
+        serviceName: orders
+        servicePort: 80
 secrets: {}
 resources: 
   limits:

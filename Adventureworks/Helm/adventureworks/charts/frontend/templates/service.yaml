@@ -6,6 +6,7 @@ metadata:
     app: {{ template "frontend.name" . }}
     chart: {{ template "frontend.chart" . }}
     release: {{ .Release.Name }}
+    version: "{{ .Values.image.tag }}"
     heritage: {{ .Release.Service }}
 spec:
   type: {{ .Values.service.type }}

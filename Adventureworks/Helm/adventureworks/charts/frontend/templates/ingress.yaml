@@ -1,13 +1,14 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := include "gateway.name" . -}}
+{{- $fullName := include "frontend.name" . -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: {{ $fullName }}
   labels:
-    app: {{ template "gateway.name" . }}
-    chart: {{ template "gateway.chart" . }}
+    app: {{ template "frontend.name" . }}
+    chart: {{ template "frontend.chart" . }}
     release: {{ .Release.Name }}
+    version: "{{ .Values.image.tag }}"
     heritage: {{ .Release.Service }}
   {{- with .Values.ingress.annotations }}
   annotations:

@@ -25,6 +25,7 @@ spec:
         app: {{ template "frontend.name" . }}
         draft: {{ .Values.draft | default "draft-app" }}
         release: {{ .Release.Name }}
+        version: "{{ .Values.image.tag }}"
       annotations:
         buildID: {{ .Values.buildID | default "" | quote }}
     spec:
