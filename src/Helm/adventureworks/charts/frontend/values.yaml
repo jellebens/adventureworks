@@ -23,7 +23,7 @@ probes:
 ingress:
   enabled: true
   hosts:
-    - '*'
+    - 'kubernetes.docker.internal'
   annotations:
     kubernetes.io/ingress.class: "istio"
   paths:

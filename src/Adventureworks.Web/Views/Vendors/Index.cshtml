@@ -65,6 +65,7 @@
 
             $('#vendors').DataTable({
                 data: ajaxData,
+                order: [[1, "desc"]],
                 columns: [
                     { data: 'name' },
                     { data: 'numOrders' },

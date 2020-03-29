@@ -22,6 +22,7 @@ probes:
 
 canary:
   enabled: false
+  tag: dev
   replicas: 1
   weight: 10
 

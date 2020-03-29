@@ -32,7 +32,9 @@ namespace Adventureworks.Orders.Controllers
                 Name = x.Name,
                 NumOrders = x.Orders.Count(),
 
-            }).OrderBy(o => o.Name).ToArray();
+            }).OrderByDescending(o => o.NumOrders)
+              .OrderBy(o => o.Name)
+              .ToArray();
 
 
 

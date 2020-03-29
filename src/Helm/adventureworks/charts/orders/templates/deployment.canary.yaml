@@ -2,7 +2,7 @@
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: {{ template "orders.fullname" . }}
+  name: {{ template "orders.fullname" . }}.canary
   labels:
     app: {{ template "orders.name" . }}
     chart: {{ template "orders.chart" . }}
@@ -27,14 +27,14 @@ spec:
         app: {{ template "orders.name" . }}
         draft: {{ .Values.draft | default "draft-app" }}
         release: {{ .Release.Name }}
-        version: "{{ .Values.image.tag }}"
+        version: "{{ .Values.canary.tag }}"
         canary: "true"
       annotations:
-        buildID: "{{ .Values.image.tag }}"
+        buildID: "{{ .Values.canary.tag }}"
     spec:
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.canary.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
