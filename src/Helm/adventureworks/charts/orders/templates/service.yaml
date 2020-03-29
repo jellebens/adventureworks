@@ -1,3 +1,4 @@
+{{- if not (.Values.canary.enabled) -}}
 apiVersion: v1
 kind: Service
 metadata:
@@ -16,4 +17,4 @@ spec:
       name: http
   selector:
     app: {{ template "orders.name" . }}
-    release: {{ .Release.Name }}
+  {{- end }}

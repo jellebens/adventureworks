@@ -1,0 +1,17 @@
+
+{{- if .Values.canary.enabled -}}
+{{- $fullName := include "orders.name" . -}}
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: {{ $fullName }}
+spec:
+  host: {{ template "orders.name" . }}
+  subsets:
+  - name: stable
+    labels:
+      canary: "false"
+  - name: canary
+    labels:
+      canary: "true"
+{{- end }}

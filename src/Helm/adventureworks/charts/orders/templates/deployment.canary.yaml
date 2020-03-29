@@ -1,4 +1,4 @@
-{{- if not (.Values.canary.enabled) -}}
+{{- if .Values.canary.enabled -}}
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
@@ -8,10 +8,10 @@ metadata:
     chart: {{ template "orders.chart" . }}
     draft: {{ .Values.draft | default "draft-app" }}
     release: {{ .Release.Name }}
+    canary: "true"
     heritage: {{ .Release.Service }}
-    canary: "false"
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.canary.replicas }}
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -28,7 +28,7 @@ spec:
         draft: {{ .Values.draft | default "draft-app" }}
         release: {{ .Release.Name }}
         version: "{{ .Values.image.tag }}"
-        canary: "false"
+        canary: "true"
       annotations:
         buildID: "{{ .Values.image.tag }}"
     spec:

@@ -9,7 +9,8 @@ Cheat sheet for adventureworks micrososervices demo case
 kubectl get pod
 
 ## install dashboard
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v1.10.1/src/deploy/recommended/kubernetes-dashboard.yaml
+see: https://github.com/kubernetes/dashboard
+
 
 ### get the token 
 $TOKEN=((kubectl -n kube-system describe secret default | Select-String "token:") -split " +")[1]
