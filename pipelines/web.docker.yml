@@ -35,6 +35,8 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
+        buildContext: $(dockedockerBuildPath)
+        arguments: --build-arg VERSION= $(tag)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
