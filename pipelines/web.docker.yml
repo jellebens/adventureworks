@@ -30,7 +30,7 @@ stages:
       vmImage: $(vmImageName)
     steps:
       - task: Docker@2
-        displayName: Build
+        displayName: Build Image
         inputs:
           containerRegistry: '$(dockerRegistryServiceConnection)'
           repository: '$(imageRepository)'
@@ -40,10 +40,10 @@ stages:
           tags: '$(tag)'
           arguments: '--build-arg VERSION=$(tag)'
       - task: Docker@2
-        displayName: Push
+        displayName: Push Image
         inputs:
           command: push
           containerRegistry: $(dockerRegistryServiceConnection)
-          repository: contosoRepository
+          repository: '$(imageRepository)'
           tags: |
             $(tag)
