@@ -7,7 +7,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '659e4fb5-1068-45d2-aed5-4738c158d565'
-  imageRepository: 'orders'
+  imageRepository: 'adventureworks/orders'
   containerRegistry: 'jbens.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/src/Adventureworks.Orders/Dockerfile'
   dockerBuildPath: '$(Build.SourcesDirectory)/src'
