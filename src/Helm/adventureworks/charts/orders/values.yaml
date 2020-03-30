@@ -47,8 +47,15 @@ resources:
   requests:
    cpu: 100m
    memory: 128Mi
-nodeSelector: {}
+nodeSelector:
+   kubernetes.io/role: agent
+   beta.kubernetes.io/os: linux
+   type: virtual-kubelet
 
-tolerations: []
+tolerations:
+  - key: virtual-kubelet.io/provider
+    operator: Exists
+  - key: azure.com/aci
+    effect: NoSchedule
 
 affinity: {}

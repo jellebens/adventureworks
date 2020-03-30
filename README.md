@@ -20,9 +20,11 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/ngin
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml
 
 # AKS Cheat sheet
-## Attach Azure Container Registry to AKS
+- az aks get-credentials --resource-group microservice-rg --name adventureworks
 
-az aks update -n adventureworks -g microservice-rg --attach-acr jbens
+## Attach Azure Container Registry to AKS
+- az aks update -n adventureworks -g microservice-rg --attach-acr jbens
+
 
 # Helm Cheat sheet
 - kubectl create namespace adventureworks
@@ -38,5 +40,5 @@ az aks update -n adventureworks -g microservice-rg --attach-acr jbens
 - istioctl manifest apply --set values.kiali.enabled=true  --set values.prometheus.enabled=true --set values.tracing.enabled=true --set addonComponents.grafana.enabled=true
 
 
-
+- kubectl create namespace adventureworks 
 - kubectl label namespace adventureworks istio-injection=enabled
