@@ -30,7 +30,7 @@ stages:
       vmImage: $(vmImageName)
     steps:
       - task: Docker@2
-        displayName: Push
+        displayName: Build
         inputs:
           containerRegistry: '$(dockerRegistryServiceConnection)'
           repository: '$(imageRepository)'
