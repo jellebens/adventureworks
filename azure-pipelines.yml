@@ -1,0 +1,44 @@
+trigger:
+- manual
+
+resources:
+- repo: self
+
+variables:
+  dockerRegistryServiceConnection: '659e4fb5-1068-45d2-aed5-4738c158d565'
+  imageRepository: 'orders'
+  containerRegistry: 'jbens.azurecr.io'
+  dockerfilePath: '$(Build.SourcesDirectory)/src/Adventureworks.Orders/Dockerfile'
+  dockerBuildPath: '$(Build.SourcesDirectory)/src'
+  tag: '$(Build.BuildId)'
+  
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build And Push Orders Image
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+      - task: Docker@2
+        displayName: Build Image
+        inputs:
+          containerRegistry: '$(dockerRegistryServiceConnection)'
+          repository: '$(imageRepository)'
+          command: 'build'
+          Dockerfile: '$(dockerfilePath)'
+          buildContext: '$(dockerBuildPath)'
+          tags: '$(tag)'
+          arguments: '--build-arg VERSION=$(tag)'
+      - task: Docker@2
+        displayName: Push Image
+        inputs:
+          command: push
+          containerRegistry: $(dockerRegistryServiceConnection)
+          repository: '$(imageRepository)'
+          tags: |
+            $(tag)
