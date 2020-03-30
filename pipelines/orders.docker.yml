@@ -43,3 +43,8 @@ stages:
           repository: '$(imageRepository)'
           tags: |
             $(tag)
+      - task: PublishBuildArtifacts@1
+        inputs:
+         PathtoPublish: '$(Build.SourcesDirectory)/src/Helm/adventureworks/charts/orders'
+         ArtifactName: 'helm charts'
+         publishLocation: 'Container'
