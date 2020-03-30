@@ -7,15 +7,9 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: '659e4fb5-1068-45d2-aed5-4738c158d565'
-<<<<<<< HEAD
-  imageRepository: 'web'
-  containerRegistry: 'jbens.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/src/Adventureworks.Web/Dockerfile'
-=======
   imageRepository: 'orders'
   containerRegistry: 'jbens.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/src/Adventureworks.Orders/Dockerfile'
->>>>>>> 559780bd6c4726e1fe93500567b65ef277846d91
   dockerBuildPath: '$(Build.SourcesDirectory)/src'
   tag: '$(Build.BuildId)'
   
@@ -23,13 +17,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-<<<<<<< HEAD
-- stage: Build And Push Web Image
-  displayName: Build and push stage
-=======
 - stage: BuildAndPush
   displayName: Build and push Orders Image
->>>>>>> 559780bd6c4726e1fe93500567b65ef277846d91
   jobs:  
   - job: Build
     displayName: Build
