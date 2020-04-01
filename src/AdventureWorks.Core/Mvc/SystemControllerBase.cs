@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Adventureworks.Core.Mvc
+namespace Microsoft.AspNetCore.Mvc
 {
     public abstract class SystemControllerBase : ControllerBase
     {

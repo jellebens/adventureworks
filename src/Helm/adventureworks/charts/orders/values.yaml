@@ -47,6 +47,7 @@ resources:
   requests:
    cpu: 100m
    memory: 128Mi
+   
 nodeSelector:
    kubernetes.io/role: agent
    beta.kubernetes.io/os: linux

@@ -1,28 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Adventureworks.Core.Service;
-using Microsoft.AspNetCore.Http;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
-namespace Adventureworks.Web.Controllers
+namespace Document.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class SystemController : SystemControllerBase
     {
-        private readonly ILogger _Logger;
-
-        public SystemController(ILogger<SystemController> logger)
+        
+        public SystemController()
         {
-            this._Logger = logger;
+            
         }
 
-        
+
         [HttpGet]
         [Route("live")]
         public override ActionResult IsLive()
@@ -34,6 +29,11 @@ namespace Adventureworks.Web.Controllers
         [Route("ready")]
         public override ActionResult IsReady()
         {
+            string connectionString = Environment.GetEnvironmentVariable("documentStorage");
+
+
+            BlobContainerClient containerClient = new BlobContainerClient(connectionString, "upload");
+
             return Ok();
         }
     }

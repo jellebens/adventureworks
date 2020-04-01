@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adventureworks.Core", "Adve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adventureworks.Web", "Adventureworks.Web\Adventureworks.Web.csproj", "{89EA0351-1252-45C4-B256-43A0B23FFE05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adventureworks.Orders", "Adventureworks.Orders\Adventureworks.Orders.csproj", "{CFA91160-8D4E-4EEF-86CB-278234DFEC39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Adventureworks.Orders", "Adventureworks.Orders\Adventureworks.Orders.csproj", "{CFA91160-8D4E-4EEF-86CB-278234DFEC39}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Document", "Document\Document.csproj", "{D6008A1C-9268-4D6C-B787-972C2F15D75B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{CFA91160-8D4E-4EEF-86CB-278234DFEC39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA91160-8D4E-4EEF-86CB-278234DFEC39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA91160-8D4E-4EEF-86CB-278234DFEC39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6008A1C-9268-4D6C-B787-972C2F15D75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6008A1C-9268-4D6C-B787-972C2F15D75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6008A1C-9268-4D6C-B787-972C2F15D75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6008A1C-9268-4D6C-B787-972C2F15D75B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

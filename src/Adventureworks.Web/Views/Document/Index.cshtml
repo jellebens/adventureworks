@@ -1,0 +1,42 @@
+﻿@model Adventureworks.Web.Models.CreateDocument;
+
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="ibox">
+            <div class="ibox-title">Upload a file</div>
+            <div class="ibox-content">
+                <form method="post" action="@Url.Action("Upload")" enctype="multipart/form-data">
+                    <div class="custom-file">
+                        <input id="Upload" name="document.upload" type="file" class="custom-file-input" asp-for="Upload">
+                        <label for="Upload" class="custom-file-label">Choose file...</label>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary col-xs-12">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <environment names="Development,Staging,Production">
+        <script src="~/lib/dataTables/dataTables.bootstrap4.min.js"></script>
+    </environment>
+
+
+    $('.custom-file-input').on('change', function() {
+    let fileName = $(this).val().split('\\').pop();
+    $(this).next('.custom-file-label').addClass("selected").html(fileName);
+    });
+}
