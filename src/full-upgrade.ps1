@@ -4,7 +4,7 @@ param (
     [string]$canary="false"
  )
 
-Write-Host $component;
+Write-Host "Deploying $component";
 
 $helmInstalls =  helm list -n adventureworks -o json | ConvertFrom-Json
 
@@ -19,6 +19,25 @@ if('all','frontend' -contains $component.ToLower()){
     
     docker build -f ".\Adventureworks.Web\Dockerfile" . -t adventureworks/web:$tag --build-arg VERSION=$tag
     helm $command $install .\Helm\adventureworks\charts\frontend --namespace adventureworks --set image.tag=$tag --set canary.enabled=$canary
+}
+
+if('all','doc' -contains $component.ToLower()){
+    $install = "documents"
+    $helm = $helmInstalls |  Where-Object {$_.name -eq $install }
+    $rev = ($helm.revision -as [int]) + 1
+    
+    
+
+    if([string]::IsNullOrEmpty($helm.app_version)){
+        $tag = "0.0.$rev";
+    }else{
+        $tag = "$($helm.app_version).$rev";
+    }
+    
+    Write-Host "Deploying document version $tag"
+    
+    docker build -f ".\Document\Dockerfile" . -t adventureworks/documents:$tag --build-arg VERSION=$tag
+    helm $command $install .\Helm\adventureworks\charts\documents --namespace adventureworks --set image.tag=$tag --set canary.enabled=$canary
 }
 
 if('all','orders' -contains $component.ToLower()){

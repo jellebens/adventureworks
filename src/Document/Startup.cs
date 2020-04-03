@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Document
+namespace Adventureworks.Document
 {
     public class Startup
     {
@@ -29,12 +29,22 @@ namespace Document
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStatusCodePages(async context =>
+            {
+                var code = context.HttpContext.Response.StatusCode;
+                if (code == 404)
+                {
+                    logger.Log(LogLevel.Warning, null, context.HttpContext.Request.Path);
+                }
+            });
+
 
             app.UseHttpsRedirection();
 

@@ -1,0 +1,60 @@
+environment: development
+
+label:
+  name: documents
+
+image:
+  repository: adventureworks/documents
+  tag: dev
+  name: documents
+  pullPolicy: IfNotPresent
+  port: 80
+
+replicas: 1
+weight: 90
+
+service:
+  type: ClusterIP
+  port: 80
+
+probes:
+  enabled: true
+
+canary:
+  enabled: false
+  tag: dev
+  replicas: 1
+  weight: 10
+
+storage:
+  update: false
+  connectionstring: ""
+
+ingress:
+  enabled: true
+  hosts:
+    - 'kubernetes.docker.internal'
+  annotations:
+    kubernetes.io/ingress.class: "istio"
+  
+  tls: []
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+
+secrets: 
+  connectionstring: "DefaultEndpointsProtocol=https;AccountName=jbens;AccountKey=XBgNKuhrrlfP+n691zv1ipW+Z+WDYR/uUrzeP0gPK8DLEBbGe/cPXN/j3Tnpb+Mi2o3bdXMu6mVchLgV00eoHA==;EndpointSuffix=core.windows.net"
+
+resources: 
+  limits:
+   cpu: 100m
+   memory: 512Mi
+  requests:
+   cpu: 10m
+   memory: 50Mi
+   
+nodeSelector: []
+   
+tolerations: {}
+  
+affinity: {}

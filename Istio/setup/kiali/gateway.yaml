@@ -12,4 +12,5 @@ spec:
       name: http-kiali
       protocol: HTTP
     hosts:
-    - "adventureworks.westeurope.cloudapp.azure.com"
+    #- "adventureworks.westeurope.cloudapp.azure.com"
+     - "kubernetes.docker.internal"

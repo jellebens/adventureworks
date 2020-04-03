@@ -5,7 +5,8 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - "adventureworks.westeurope.cloudapp.azure.com"
+    # - "adventureworks.westeurope.cloudapp.azure.com"
+    - "kubernetes.docker.internal"
   gateways:
   - kiali-gateway
   http:

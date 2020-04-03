@@ -26,15 +26,11 @@ ingress:
     - 'kubernetes.docker.internal'
   annotations:
     kubernetes.io/ingress.class: "istio"
-  paths:
-    - path: /
-      backend:
-        serviceName: frontend
-        servicePort: 80
-    - path: /api/orders
-      backend:
-        serviceName: orders
-        servicePort: 80
+  # paths:
+  #   - path: /
+  #     backend:
+  #       serviceName: frontend
+  #       servicePort: 80
 secrets: {}
 resources: 
   limits:
@@ -44,15 +40,9 @@ resources:
    cpu: 100m
    memory: 128Mi
 
-nodeSelector:
-   kubernetes.io/role: agent
+nodeSelector: 
    beta.kubernetes.io/os: linux
-   type: virtual-kubelet
 
-tolerations:
-  - key: virtual-kubelet.io/provider
-    operator: Exists
-  - key: azure.com/aci
-    effect: NoSchedule
+tolerations: {}
 
 affinity: {}

@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Document.Data
+namespace Adventureworks.Document.Data
 {
-    public class NewFile
+    public class QueueFile
     {
-        public IFormFile Upload { get; set; }
+        public Guid Id { get; set; }
+
+        public string FileName { get; set; }
+
     }
 }

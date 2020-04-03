@@ -1,22 +1,17 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
+ARG VERSION="dev"
+ENV VERSION=$VERSION
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS publish
 WORKDIR /src
-COPY ["Document/Document.csproj", "Document/"]
-COPY ["AdventureWorks.Core/Adventureworks.Core.csproj", "AdventureWorks.Core/"]
-RUN dotnet restore "Document/Document.csproj"
-COPY . .
-WORKDIR "/src/Document"
-RUN dotnet build "Document.csproj" -c Release -o /app/build
 
-FROM build AS publish
-RUN dotnet publish "Document.csproj" -c Release -o /app/publish
+COPY . .
+RUN dotnet restore Document/Adventureworks.Document.csproj
+RUN dotnet publish Document/Adventureworks.Document.csproj -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Document.dll"]
+ENTRYPOINT ["dotnet", "Adventureworks.Document.dll"]

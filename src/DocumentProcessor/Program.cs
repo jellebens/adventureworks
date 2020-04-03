@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Adventureworks.Document
+namespace DocumentProcessor
 {
     public class Program
     {
@@ -18,16 +18,18 @@ namespace Adventureworks.Document
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) => {
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
                     config.AddEnvironmentVariables();
                 })
-                 .ConfigureLogging((hostBuilderContext, loggingBuilder) =>
-                 {
-                     loggingBuilder.AddConsole(consoleLoggerOptions => consoleLoggerOptions.TimestampFormat = "[HH:mm:ss]");
-                 })
-                .ConfigureWebHostDefaults(webBuilder =>
+                .ConfigureLogging((hostBuilderContext, loggingBuilder) =>
                 {
-                    webBuilder.UseStartup<Startup>();
+                    loggingBuilder.AddConsole(consoleLoggerOptions => consoleLoggerOptions.TimestampFormat = "[HH:mm:ss]");
+                })
+                .ConfigureServices(services =>
+                {
+                    //TODO
+                    //services.AddHostedService<DocumentProcessor>();
                 });
     }
 }

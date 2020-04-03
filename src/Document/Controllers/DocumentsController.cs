@@ -4,9 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Adventureworks.Document.Data;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Document.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -14,7 +14,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using Newtonsoft.Json;
 
-namespace Document.Controllers
+namespace Adventureworks.Document.Controllers
 {
     [ApiController]
     [Route("api/documents")]
@@ -28,19 +28,12 @@ namespace Document.Controllers
         }
         [Route("upload")]
         [HttpPost]
-        public async void Upload(IFormFile file)
+        public async void Upload(QueueFile file)
         {
-            _Logger.LogInformation("Handling upload: " + file.FileName);
+            _Logger.LogInformation("Queueing: " + file.FileName);
 
             string connectionString = Environment.GetEnvironmentVariable("DOCUMENT_STORAGE");
 
-
-            BlobContainerClient containerClient = new BlobContainerClient(connectionString, "upload");
-            containerClient.CreateIfNotExists();
-            Guid id = Guid.NewGuid();
-
-            await containerClient.UploadBlobAsync(id.ToString(), file.OpenReadStream());
-            
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
 
             CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
@@ -49,13 +42,8 @@ namespace Document.Controllers
 
             await queue.CreateIfNotExistsAsync();
 
-            var message = new
-            {
-                DocId = id,
-                FileName = file.FileName
-            };
 
-            await queue.AddMessageAsync(new CloudQueueMessage(JsonConvert.SerializeObject(message)));
+            await queue.AddMessageAsync(new CloudQueueMessage(JsonConvert.SerializeObject(file)));
 
             _Logger.LogInformation("Queued file " + file.FileName);
         }
