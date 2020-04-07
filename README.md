@@ -15,9 +15,8 @@ see: https://github.com/kubernetes/dashboard
 ### get the token 
 $TOKEN=((kubectl -n kube-system describe secret default | Select-String "token:") -split " +")[1]
 
-## Installing nginx ingress controller
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
-kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml
+## Installing metrics server
+follow these steps: https://blog.codewithdan.com/enabling-metrics-server-for-kubernetes-on-docker-desktop/
 
 # AKS Cheat sheet
 - az aks get-credentials --resource-group microservice-rg --name adventureworks
