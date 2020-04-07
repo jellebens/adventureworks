@@ -70,11 +70,11 @@ namespace DocumentProducer
 
                     HttpContent content = new StringContent(JsonConvert.SerializeObject(payload), Encoding.UTF8, "application/json");
 
-                    var result = client.PostAsync("http://kubernetes.docker.internal/api/documents/upload", content).Result;
+                    var result = client.PostAsync("http://kubernetes.docker.internal/api/public/documents/upload", content).Result;
 
                     if (!result.IsSuccessStatusCode) {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Failed to process document. Exiting.");
+                        Console.WriteLine("Failed to process document. Exiting. Error: " + result.ReasonPhrase);
                         containerClient.DeleteBlob(id.ToString());
                         return;
                     }
