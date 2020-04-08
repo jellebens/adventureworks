@@ -1,43 +1,77 @@
-﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Queue;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Storage.Blobs;
+using DocumentProcessor.Data;
+using Microsoft.Azure.ServiceBus;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace DocumentProcessor
 {
     public class DocumentProcessor : BackgroundService
     {
-        public DocumentProcessor(ILogger<DocumentProcessor> logger)
+        private IConfiguration _Configuration;
+        private ILogger<DocumentProcessor> _Logger;
+        QueueClient queueClient;
+
+        public DocumentProcessor(IConfiguration configuration, ILogger<DocumentProcessor> logger)
         {
             _Logger = logger;
+            _Configuration = configuration;
         }
 
-        public ILogger<DocumentProcessor> _Logger { get; }
+        
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            string connectionString = _Configuration.GetValue<string>("DOCUMENT_BUS");
+
+            
 
             _Logger.LogInformation("Start Processing messages: ");
 
-            string connectionString = Environment.GetEnvironmentVariable("DOCUMENT_STORAGE");
+            var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
+            {
+                MaxConcurrentCalls = 5,
+                AutoComplete = true
+            };
 
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(connectionString);
+            queueClient.RegisterMessageHandler(HandleMessage, messageHandlerOptions);
 
-            CloudQueueClient queueClient = storageAccount.CreateCloudQueueClient();
-
-            CloudQueue queue = queueClient.GetQueueReference("docsin");
-
-            await queue.CreateIfNotExistsAsync();
+            
 
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(TimeSpan.FromSeconds(1));
             }
+
+            await queueClient.CloseAsync();
+        }
+
+        private async Task HandleMessage(Message message, CancellationToken token) {
+            string connectionString = _Configuration.GetValue<string>("DOCUMENT_STORAGE");
+
+            BlobContainerClient containerClient = new BlobContainerClient(connectionString, "upload");
+            containerClient.CreateIfNotExists();
+
+            string body = Encoding.UTF8.GetString(message.Body);
+
+            QueuedFile file = JsonConvert.DeserializeObject<QueuedFile>(body);
+
+            await containerClient.DeleteBlobAsync(file.Id.ToString());
+
+            _Logger.LogError($"Threated File: {file.FileName}");
+        }
+
+        private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
+        {
+            _Logger.LogError($"Message handler encountered an exception {exceptionReceivedEventArgs.Exception}.");
+            return Task.CompletedTask;
         }
     }
 }
