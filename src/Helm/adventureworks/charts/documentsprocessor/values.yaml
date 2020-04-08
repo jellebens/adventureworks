@@ -1,0 +1,48 @@
+environment: development
+
+label:
+  name: documentsprocessor
+
+image:
+  repository: adventureworks/documentsprocessor
+  tag: dev
+  name: documentsprocessor
+  pullPolicy: IfNotPresent
+  port: 80
+
+replicas: 1
+weight: 90
+
+service:
+  type: ClusterIP
+  port: 80
+
+probes:
+  enabled: false
+
+canary:
+  enabled: false
+  tag: dev
+  replicas: 1
+  weight: 10
+
+
+  
+  tls: []
+    # - secretName: chart-example-tls
+    #   hosts:
+    #     - chart-example.local
+
+resources: 
+  limits:
+   cpu: 100m
+   memory: 512Mi
+  requests:
+   cpu: 10m
+   memory: 50Mi
+   
+nodeSelector: []
+   
+tolerations: {}
+  
+affinity: {}

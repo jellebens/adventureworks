@@ -55,6 +55,8 @@ namespace Adventureworks.Document
                 {
                     logger.Log(LogLevel.Warning, null, context.HttpContext.Request.Path);
                 }
+
+                await Task.CompletedTask;
             });
 
 

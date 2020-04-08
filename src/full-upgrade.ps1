@@ -40,6 +40,25 @@ if('all','doc' -contains $component.ToLower()){
     helm $command $install .\Helm\adventureworks\charts\documents --namespace adventureworks --set image.tag=$tag --set canary.enabled=$canary
 }
 
+if('all','docp' -contains $component.ToLower()){
+    $install = "documentsprocessor"
+    $helm = $helmInstalls |  Where-Object {$_.name -eq $install }
+    $rev = ($helm.revision -as [int]) + 1
+    
+    
+
+    if([string]::IsNullOrEmpty($helm.app_version)){
+        $tag = "0.0.$rev";
+    }else{
+        $tag = "$($helm.app_version).$rev";
+    }
+    
+    Write-Host "Deploying document processor version $tag"
+    
+    docker build -f ".\DocumentProcessor\DockerFile" . -t adventureworks/documentsprocessor:$tag --build-arg VERSION=$tag
+    helm $command $install .\Helm\adventureworks\charts\documentsprocessor --namespace adventureworks --set image.tag=$tag --set canary.enabled=$canary
+}
+
 if('all','orders' -contains $component.ToLower()){
     $install = "service.orders"
     $helm = $helmInstalls |  Where-Object {$_.name -eq $install }

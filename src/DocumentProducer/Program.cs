@@ -54,17 +54,26 @@ namespace DocumentProducer
                     return;
                 }
 
+                int i = 0;
                 Parallel.ForEach(files, (file, state , x) =>
                 {
-                    Console.WriteLine($"Uploading document {x + 1} of {files.Length}");
+                    Console.WriteLine($"Uploading document {++i} of {files.Length}");
                     Guid id = Guid.NewGuid();
-
-                    containerClient.UploadBlob(id.ToString(), File.OpenRead(file));
+                    try
+                    {
+                        containerClient.UploadBlob(id.ToString(), File.OpenRead(file));
+                    }
+                    catch (Exception exc)
+                    {
+                        Console.WriteLine("Failed to upload document. Exiting. Error: " + exc.Message);
+                        return;
+                    }
+                    
 
                     HttpClient client = new HttpClient();
 
                     var payload = new {
-                        Id = Guid.NewGuid(),
+                        Id = id,
                         FileName = Path.GetFileName(file)
                     };
 
@@ -74,7 +83,7 @@ namespace DocumentProducer
 
                     if (!result.IsSuccessStatusCode) {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Failed to process document. Exiting. Error: " + result.ReasonPhrase);
+                        Console.WriteLine("Failed to queue document. Exiting. Error: " + result.ReasonPhrase);
                         containerClient.DeleteBlob(id.ToString());
                         return;
                     }

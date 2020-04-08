@@ -17,8 +17,7 @@ namespace DocumentProcessor
     {
         private IConfiguration _Configuration;
         private ILogger<DocumentProcessor> _Logger;
-        QueueClient queueClient;
-
+        
         public DocumentProcessor(IConfiguration configuration, ILogger<DocumentProcessor> logger)
         {
             _Logger = logger;
@@ -29,17 +28,16 @@ namespace DocumentProcessor
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _Logger.LogInformation("Start Processing messages");
+
             string connectionString = _Configuration.GetValue<string>("DOCUMENT_BUS");
-
-            
-
-            _Logger.LogInformation("Start Processing messages: ");
 
             var messageHandlerOptions = new MessageHandlerOptions(ExceptionReceivedHandler)
             {
                 MaxConcurrentCalls = 5,
                 AutoComplete = true
             };
+            QueueClient queueClient = new QueueClient(connectionString, "docsin");
 
             queueClient.RegisterMessageHandler(HandleMessage, messageHandlerOptions);
 
@@ -54,18 +52,20 @@ namespace DocumentProcessor
         }
 
         private async Task HandleMessage(Message message, CancellationToken token) {
+            string body = Encoding.UTF8.GetString(message.Body);
+
+            QueuedFile file = JsonConvert.DeserializeObject<QueuedFile>(body);
+            _Logger.LogInformation($"Threating File: {file.Id} filename: {file.FileName}");
             string connectionString = _Configuration.GetValue<string>("DOCUMENT_STORAGE");
 
             BlobContainerClient containerClient = new BlobContainerClient(connectionString, "upload");
             containerClient.CreateIfNotExists();
-
-            string body = Encoding.UTF8.GetString(message.Body);
-
-            QueuedFile file = JsonConvert.DeserializeObject<QueuedFile>(body);
-
+            
             await containerClient.DeleteBlobAsync(file.Id.ToString());
 
-            _Logger.LogError($"Threated File: {file.FileName}");
+            _Logger.LogInformation($"Threated File: {file.FileName}");
+            
+            
         }
 
         private Task ExceptionReceivedHandler(ExceptionReceivedEventArgs exceptionReceivedEventArgs)
